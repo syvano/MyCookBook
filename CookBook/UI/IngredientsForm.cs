@@ -84,14 +84,14 @@ namespace CookBook.UI
             {
                 HeaderText = "",
                 Text = "delete",
-                Name = "deleteBtn",
+                Name = "DeleteBtn",
                 UseColumnTextForButtonValue = true,
             };
             columns[7] = new DataGridViewButtonColumn()
             {
                 HeaderText = "",
                 Text = "edit",
-                Name = "editBtn",
+                Name = "EditBtn",
                 UseColumnTextForButtonValue = true,
             };
 
@@ -169,12 +169,26 @@ namespace CookBook.UI
 
         private async void IngredientsGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex == 6 && IngredientsGrid.CurrentCell is DataGridViewButtonCell)
+            Ingredient clickedIngredient = (Ingredient)IngredientsGrid.Rows[e.RowIndex].DataBoundItem;
+
+            if (e.RowIndex >= 0  && IngredientsGrid.CurrentCell.OwningColumn.Name == "DeleteBtn")
             {
-                Ingredient clickedIngredient = (Ingredient)IngredientsGrid.Rows[e.RowIndex].DataBoundItem;
                 await _ingredientsRepository.DeleteIngredient(clickedIngredient);
                 RefreshGridData();
             }
+            else if (e.RowIndex >= 0 && IngredientsGrid.CurrentCell.OwningColumn.Name == "EditBtn")
+            {
+                FillForForm(clickedIngredient);
+            }
+        }
+
+        private void FillForForm(Ingredient clickedIngredient)
+        {
+            NameTxt.Text = clickedIngredient.Name;
+            TypeTxt.Text = clickedIngredient.Type;
+            WeightNum.Value = clickedIngredient.Weight;
+            KcalPer100gNum.Value = clickedIngredient.KcalPer100g;
+            PricePer100gNum.Value = clickedIngredient.PricePer100g;
         }
     }
 }
