@@ -43,6 +43,7 @@
             IngredientsGrid = new DataGridView();
             SearchTxt = new TextBox();
             ClearAllFieldsBtn = new Button();
+            EditIngredientBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)WeightNum).BeginInit();
             ((System.ComponentModel.ISupportInitialize)KcalPer100gNum).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PricePer100gNum).BeginInit();
@@ -192,11 +193,21 @@
             ClearAllFieldsBtn.UseVisualStyleBackColor = true;
             ClearAllFieldsBtn.Click += ClearAllFieldsBtn_Click;
             // 
+            // EditIngredientBtn
+            // 
+            EditIngredientBtn.Location = new Point(1073, 462);
+            EditIngredientBtn.Name = "EditIngredientBtn";
+            EditIngredientBtn.Size = new Size(489, 57);
+            EditIngredientBtn.TabIndex = 15;
+            EditIngredientBtn.Text = "Edit ingredient";
+            EditIngredientBtn.UseVisualStyleBackColor = true;
+            // 
             // IngredientsForm
             // 
             AutoScaleDimensions = new SizeF(18F, 45F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1606, 668);
+            Controls.Add(EditIngredientBtn);
             Controls.Add(ClearAllFieldsBtn);
             Controls.Add(SearchTxt);
             Controls.Add(IngredientsGrid);
@@ -240,5 +251,6 @@
         private DataGridView IngredientsGrid;
         private TextBox SearchTxt;
         private Button ClearAllFieldsBtn;
+        private Button EditIngredientBtn;
     }
 }
