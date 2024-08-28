@@ -201,6 +201,7 @@
             EditIngredientBtn.TabIndex = 15;
             EditIngredientBtn.Text = "Edit ingredient";
             EditIngredientBtn.UseVisualStyleBackColor = true;
+            EditIngredientBtn.Click += EditIngredientBtn_Click;
             // 
             // IngredientsForm
             // 

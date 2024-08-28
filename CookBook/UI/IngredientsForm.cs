@@ -18,6 +18,7 @@ namespace CookBook.UI
     public partial class IngredientsForm : Form
     {
         readonly IIngredientsRepository _ingredientsRepository; //global variable, good practice to use underscore at the beginning
+        private int _ingredientToEditId;
         public IngredientsForm(IIngredientsRepository ingredientsRepository)
         {
             InitializeComponent();
@@ -164,7 +165,7 @@ namespace CookBook.UI
                 message += "Price must be greater than 0\n\n";
             }
 
-            if(!string.IsNullOrEmpty(message))
+            if (!string.IsNullOrEmpty(message))
                 MessageBox.Show(message, "Form invalid");
 
             return isValid;
@@ -174,7 +175,7 @@ namespace CookBook.UI
         {
             Ingredient clickedIngredient = (Ingredient)IngredientsGrid.Rows[e.RowIndex].DataBoundItem;
 
-            if (e.RowIndex >= 0  && IngredientsGrid.CurrentCell.OwningColumn.Name == "DeleteBtn")
+            if (e.RowIndex >= 0 && IngredientsGrid.CurrentCell.OwningColumn.Name == "DeleteBtn")
             {
                 await _ingredientsRepository.DeleteIngredient(clickedIngredient);
                 RefreshGridData();
@@ -189,11 +190,23 @@ namespace CookBook.UI
 
         private void FillForForm(Ingredient clickedIngredient)
         {
+            _ingredientToEditId = clickedIngredient.Id;
+
             NameTxt.Text = clickedIngredient.Name;
             TypeTxt.Text = clickedIngredient.Type;
             WeightNum.Value = clickedIngredient.Weight;
             KcalPer100gNum.Value = clickedIngredient.KcalPer100g;
             PricePer100gNum.Value = clickedIngredient.PricePer100g;
+        }
+
+        private async void EditIngredientBtn_Click(object sender, EventArgs e)
+        {
+            Ingredient ingredient = new Ingredient(NameTxt.Text,TypeTxt.Text,WeightNum.Value,KcalPer100gNum.Value,PricePer100gNum.Value,_ingredientToEditId);
+
+            await _ingredientsRepository.EditIngredient(ingredient);
+
+            ClearAllFields();
+            RefreshGridData();
         }
     }
 }

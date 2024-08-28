@@ -61,16 +61,16 @@ namespace DataAccessLayer.Repositories
         {
 
             string query = @$"update Ingredients set
-                            Name = {ingredient.Name},
-                            Weight = {ingredient.Weight},
-                            KcalPer100g = {ingredient.KcalPer100g},
-                            PricePer100g = {ingredient.PricePer100g}
-                            where ID = {ingredient.Id}";
-                                
+                            Name = @Name,
+                            Weight = @Weight,
+                            KcalPer100g = @KcalPer100g,
+                            PricePer100g = @PricePer100g
+                            where ID = @Id";
+
 
             using (IDbConnection connection = new SqlConnection(ConnectionHelper.ConnectionString))
             {
-                await connection.ExecuteAsync(query, ingredient);
+                await connection.ExecuteAsync(query,ingredient);
             }
         }
 
