@@ -63,8 +63,6 @@ namespace CookBook.UI
         private async void RefreshGridData()
         {
             IngredientsGrid.DataSource = await _ingredientsRepository.GetIngredients(SearchTxt.Text);
-            AddToFridgeBtn.Visible = true;
-            EditIngredientBtn.Visible = false;
         }
 
         private void CustomizeGridAppearance()
@@ -106,7 +104,10 @@ namespace CookBook.UI
         private void ClearAllFieldsBtn_Click(object sender, EventArgs e)
         {
             ClearAllFields();
-            RefreshGridData();
+
+            AddToFridgeBtn.Visible = true;
+            EditIngredientBtn.Visible = false;
+            _ingredientToEditId = 0;
         }
 
         private async void SearchTxt_TextChanged(object sender, EventArgs e)
