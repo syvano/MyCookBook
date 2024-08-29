@@ -205,7 +205,12 @@ namespace CookBook.UI
 
             await _ingredientsRepository.EditIngredient(ingredient);
 
-            ClearAllFields();
+            NameTxt.Text = string.Empty;
+            TypeTxt.Text = string.Empty;
+            WeightNum.Value = 1;
+            KcalPer100gNum.Value = 0;
+            PricePer100gNum.Value = 0;
+
             RefreshGridData();
         }
     }
